@@ -1,11 +1,85 @@
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-Gym Membership System Backend
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter project & boilerplate (Nest, MongoDB, JWT, Roles, Guards, Filters, Interceptors) including auth and user modules.
 
-## Postman & Docs
+This boilerplate includes the following:
 
-You are invited to join the postman team using this link ([CLICK HERE](https://app.getpostman.com/join-team?invite_code=336841d8a03e83510ce26ca8d113dde7&ws=30e297ef-c5b7-4a5e-b3f5-47b9147e4bed))
+#### Env Example
+
+```
+APP_PORT=                     //Port of the app
+MONGO_CLOUD_CONNECTION_URL=   //MongoDB URL
+CORS_LIST=                    //Whitelist for CORS
+JWT_SECRET=                   //JWT Secret
+```
+
+#### Config Module
+
+get your env variables
+
+- `get(key: string): string`
+- `getPortConfig()`
+- `getMongoConfig()`
+
+#### Core
+
+##### http-error filter
+
+Errors will be returned as:
+
+```
+code: status,
+timestamp: new Date().toLocaleString(),
+path: request.url,
+error: {
+    response: {
+      message: exception['response'].message,
+      error: exception['error'],
+    },
+  message: exception.message,
+},
+```
+
+good for logging and consistent error response for the frontend.
+
+##### Response Interceptor
+
+All responses will have the following interface:
+
+```
+export interface Response<T> {
+  code: number;
+  message: string;
+  data: T;
+}
+```
+
+Good for consistent responses for the frontend.
+
+##### Validation Pipe
+
+[To write]
+
+#### Modules
+
+##### Auth
+
+- Roles decorator
+- User decorator
+- Roles enum
+- JWT and Roles Guard
+- JWT Services (Generate, Compare Password, Hash Password)
+
+##### Users
+
+- Module
+- Model
+- Interface
+- 2 DTOs
+- Controller implementing Guards and Roles Decorators
+- Service
+
+This module is intented to set the standard of work and get you started with it after reading it well :)
 
 ## Installation
 
@@ -38,13 +112,3 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
